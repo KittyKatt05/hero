@@ -12,21 +12,11 @@ public class Application {
     public static void main(String[] args) {
 
         try {
-            Terminal terminal = new DefaultTerminalFactory().createTerminal();
-            Screen screen = new TerminalScreen(terminal);
-
-            screen.setCursorPosition(null);
-
-            screen.startScreen();
-
-            screen.doResizeIfNecessary();
-
-            screen.clear();screen.setCharacter(10, 10, TextCharacter.fromCharacter('X')[0]);
-            screen.refresh();
-
+        Game game = new Game();
+        game.run();
         } catch (IOException e) {
-        e.printStackTrace();
-    }
+            e.printStackTrace();
+        }
 
 
 
