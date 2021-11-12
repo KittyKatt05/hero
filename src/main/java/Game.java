@@ -12,6 +12,7 @@ public class Game {
 
     private Screen screen;
     Hero hero;
+    Arena arena = new Arena(78, 23);
 
     public Game() {
         try {
@@ -32,7 +33,7 @@ public class Game {
 
     private void draw() throws IOException {
         screen.clear();
-        hero.draw(screen);
+        arena.draw(screen);
         screen.refresh();
     }
 
@@ -53,25 +54,10 @@ public class Game {
     }
 
     private void processKey(KeyStroke key) {
-        switch(key.getKeyType()){
-            case ArrowUp:
-                moveHero(hero.moveUp());
-                break;
-            case ArrowDown:
-                moveHero(hero.moveDown());
-                break;
-            case ArrowLeft:
-                moveHero(hero.moveLeft());
-                break;
-            case ArrowRight:
-                moveHero(hero.moveRight());
-                break;
-        }
+        arena.processKey(key);
 
 
     }
 
-    private void moveHero(Position position) {
-        hero.setPosition(position);
-    }
+
 }
