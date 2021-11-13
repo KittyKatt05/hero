@@ -5,32 +5,24 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Wall {
 
-    private int a;
-    private int b;
 
-    public Wall(int a, int b) {
-        this.a = a;
-        this.b = b;
+    private Position position;
+
+    public Wall(int x, int y) {
+        position = new Position(x, y);
     }
 
-    public int getA() {
-        return a;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setA(int a) {
-        this.a = a;
-    }
-
-    public int getB() {
-        return b;
-    }
-
-    public void setB(int b) {
-        this.b = b;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#00BFFF"));
-        graphics.putString(new TerminalPosition(a, b), "W");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "W");
     }
+
 }
