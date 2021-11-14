@@ -17,6 +17,7 @@ public class Arena {
     private Hero hero;
     private List<Wall> walls;
     private List<Coin> coins;
+    private List<Monster> monsters;
 
 
     public Arena(int width, int height) {
@@ -25,6 +26,7 @@ public class Arena {
         hero = new Hero(10,10);
         this.walls = createWalls();
         this.coins = createCoins();
+        this.monsters = createMonsters();
 
 
     }
@@ -38,6 +40,9 @@ public class Arena {
         }
         for (Coin coin : coins) {
             coin.draw(graphics);
+        }
+        for (Monster monster : monsters) {
+            monster.draw(graphics);
         }
         retrieveCoins(hero.getPosition());
 
@@ -109,6 +114,22 @@ public class Arena {
         }
 
         coins.removeAll(removeCoins);
+
+    }
+
+    private List<Monster> createMonsters() {
+        Random random = new Random();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return monsters;
+    }
+
+    private void move() {
+
+    }
+
+    private void moveMonsters() {
 
     }
 
