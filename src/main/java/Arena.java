@@ -5,6 +5,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -47,6 +48,7 @@ public class Arena {
         retrieveCoins(hero.getPosition());
 
 
+
     }
 
     public void processKey(KeyStroke key) {
@@ -72,6 +74,12 @@ public class Arena {
         }
     }
 
+    private void moveMonster(Position position, Monster monster) {
+        if(canMonsterMove(position)) {
+            monster.setPosition(position);
+        }
+    }
+
     private boolean canHeroMove(Position position) {
         for (Wall wall : walls) {
             if (wall.getPosition().equals(position)) {
@@ -79,6 +87,15 @@ public class Arena {
             }
         }
 
+        return true;
+    }
+
+    private boolean canMonsterMove(Position position) {
+        for (Wall wall : walls) {
+            if (wall.getPosition().equals(position)) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -125,12 +142,49 @@ public class Arena {
         return monsters;
     }
 
-    private void move() {
+    private void move(int i, Monster monster) {
+            switch (i) {
+                case 1:
+                    moveMonster(monster.moveUp(), monster);
+                    break;
+                case 2:
+                    moveMonster(monster.moveDown(), monster);
+                    break;
+                case 3:
+                    moveMonster(monster.moveLeft(), monster);
+                    break;
+                case 4:
+                    moveMonster(monster.moveRight(), monster);
+                    break;
+            }
+
 
     }
 
-    private void moveMonsters() {
+    public void moveMonsters() {
+        for (Monster monster : monsters) {
+            Random rand = new Random();
+            int random_integer = rand.nextInt(5-1) + 1;
+            move(random_integer,monster);
+        }
 
+    }
+
+    private boolean verifyMonsterCollisions(Position position){
+        for (Monster monster : monsters) {
+            if (monster.getPosition().equals(position)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public void monsterCollisions(Screen screen) throws IOException {
+        if (verifyMonsterCollisions(hero.getPosition())) {
+            System.out.println("Game Over!");
+            screen.close();
+        }
     }
 
 

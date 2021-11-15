@@ -43,6 +43,8 @@ public class Game {
             draw();
             KeyStroke key = screen.readInput();
             processKey(key);
+            arena.moveMonsters();
+            arena.monsterCollisions(screen);
             if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
                 screen.close();
             }
@@ -55,6 +57,7 @@ public class Game {
 
     private void processKey(KeyStroke key) {
         arena.processKey(key);
+
 
 
     }
